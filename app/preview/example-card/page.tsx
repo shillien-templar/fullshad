@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 
 export default function ExampleCardPreview() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-[400px]">
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex items-center justify-between">
