@@ -54,7 +54,7 @@ const data = {
         },
         {
             title: "Communication",
-            url: "#",
+            url: "/communication",
             icon: MessageCircle,
             items: [
                 {
@@ -63,7 +63,7 @@ const data = {
                 },
                 {
                     title: "Email Layouts",
-                    url: "#",
+                    url: "/communication/email-layouts",
                 },
                 {
                     title: "Message Threads",
