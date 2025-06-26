@@ -92,7 +92,7 @@ export function InboxEmail() {
 
                 <div className="space-y-2">
                     <h2 className="text-xl font-semibold">Q4 Marketing Campaign Review</h2>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex flex-col md:flex-row md:items-center gap-4 text-sm text-muted-foreground">
                         <span>To: marketing-team@company.com</span>
                         <span>Today at 2:34 PM</span>
                         <Badge variant="secondary">Priority</Badge>
@@ -103,7 +103,7 @@ export function InboxEmail() {
             <CardContent className="px-4">
                 {/* Email Actions */}
                 <div className="border-b pb-3 mb-4">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                         <Button variant="outline" size="sm">
                             <Reply className="h-4 w-4 mr-2"/>
                             Reply
@@ -179,19 +179,24 @@ export function InboxEmail() {
 
                             <CardContent>
                                 <div className="space-y-2">
-                                    <div className="rounded-md flex items-center gap-3 p-2 bg-primary-foreground rounded border">
-                                        <Paperclip className="h-4 w-4 text-muted-foreground"/>
-                                        <div className="flex-1">
-                                            <p className="text-sm font-medium">Q4_Campaign_Review.pdf</p>
-                                            <p className="text-xs text-muted-foreground">2.4 MB</p>
+                                    <div className="rounded-md flex flex-wrap items-center gap-3 p-2 bg-primary-foreground rounded border">
+                                        <div className="w-full md:w-[auto] md:grow-1 flex items-center gap-3">
+                                            <Paperclip className="h-4 w-4 text-muted-foreground"/>
+                                            <div className="flex-1">
+                                                <p className="text-sm font-medium">Q4_Campaign_Review.pdf</p>
+                                                <p className="text-xs text-muted-foreground">2.4 MB</p>
+                                            </div>
                                         </div>
                                         <Button variant="outline" size="sm">Download</Button>
                                     </div>
-                                    <div className="rounded-md flex items-center gap-3 p-2 bg-primary-foreground rounded border">
-                                        <Paperclip className="h-4 w-4 text-muted-foreground"/>
-                                        <div className="flex-1">
-                                            <p className="text-sm font-medium">Campaign_Budget_Analysis.xlsx</p>
-                                            <p className="text-xs text-muted-foreground">1.8 MB</p>
+
+                                    <div className="rounded-md flex flex-wrap items-center gap-3 p-2 bg-primary-foreground rounded border">
+                                        <div className="w-full md:w-[auto] md:grow-1 flex items-center gap-3">
+                                            <Paperclip className="h-4 w-4 text-muted-foreground"/>
+                                            <div className="flex-1">
+                                                <p className="text-sm font-medium">Campaign_Budget_Analysis.xlsx</p>
+                                                <p className="text-xs text-muted-foreground">1.8 MB</p>
+                                            </div>
                                         </div>
                                         <Button variant="outline" size="sm">Download</Button>
                                     </div>
