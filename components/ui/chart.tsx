@@ -125,6 +125,22 @@ function ChartTooltipContent({
     indicator?: "line" | "dot" | "dashed"
     nameKey?: string
     labelKey?: string
+    label?: string | number
+    labelFormatter?: (value: string | number | undefined, payload: Array<{
+      value?: string | number
+      name?: string
+      dataKey?: string
+      color?: string
+      payload?: Record<string, unknown>
+    }> | undefined) => React.ReactNode
+    formatter?: (value: string | number | undefined, name: string | undefined, payload: Record<string, unknown> | undefined) => React.ReactNode
+    payload?: Array<{
+      value?: string | number
+      name?: string
+      dataKey?: string
+      color?: string
+      payload?: Record<string, unknown>
+    }>
   }) {
   const { config } = useChart()
 
@@ -179,10 +195,10 @@ function ChartTooltipContent({
     >
       {!nestLabel ? tooltipLabel : null}
       <div className="grid gap-1.5">
-        {payload.map((item, index) => {
+        {payload.map((item) => {
           const key = `${nameKey || item.name || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
-          const indicatorColor = color || item.payload.fill || item.color
+          const indicatorColor = color || item.payload?.fill || item.color
 
           return (
             <div
@@ -193,7 +209,7 @@ function ChartTooltipContent({
               )}
             >
               {formatter && item?.value !== undefined && item.name ? (
-                formatter(item.value, item.name, item, index, item.payload)
+                formatter(item.value, item.name, item.payload)
               ) : (
                 <>
                   {itemConfig?.icon ? (
@@ -256,8 +272,15 @@ function ChartLegendContent({
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+}: React.ComponentProps<"div"> & {
+    payload?: Array<{
+      value?: string | number
+      name?: string
+      dataKey?: string
+      color?: string
+      payload?: Record<string, unknown>
+    }>
+    verticalAlign?: "top" | "middle" | "bottom"
     hideIcon?: boolean
     nameKey?: string
   }) {
