@@ -77,7 +77,7 @@ export default function Page() {
                         </Link>
                     </Button>
                     <Button variant="outline" size="lg" asChild>
-                        <Link href="https://github.com/yourusername/fullshad" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://github.com/shillien-templar/fullshad" target="_blank" rel="noopener noreferrer">
                             <Github className="mr-2 h-4 w-4" />
                             GitHub
                             <ExternalLink className="ml-2 h-3 w-3" />
@@ -167,7 +167,7 @@ export default function Page() {
                         </Link>
                     </Button>
                     <Button variant="outline" size="lg" asChild>
-                        <Link href="https://github.com/yourusername/fullshad" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://github.com/shillien-templar/fullshad" target="_blank" rel="noopener noreferrer">
                             <Github className="mr-2 h-4 w-4" />
                             Star on GitHub
                         </Link>
