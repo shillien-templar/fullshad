@@ -4,6 +4,7 @@ import * as React from "react"
 import {
     CreditCard,
     FileText,
+    Github,
     Layout,
     Lock,
     Mail,
@@ -13,6 +14,7 @@ import {
     Search,
     ShoppingCart,
     Users,
+    ExternalLink,
 } from "lucide-react"
 
 import {NavCategory} from "@/components/nav-category"
@@ -23,6 +25,8 @@ import {
     SidebarHeader,
     SidebarRail,
 } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import {SearchForm} from "./search-form"
 import {ThemeToggle} from "@/components/theme-toggle";
 
@@ -220,7 +224,36 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
-                <SearchForm/>
+                <div className="flex flex-col gap-2 p-2">
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-lg font-semibold">fullshad</h2>
+                        <div className="flex items-center gap-1">
+                            <Button variant="outline" size="sm" asChild>
+                                <Link href="https://github.com/shillien-templar/fullshad" target="_blank" rel="noopener noreferrer">
+                                    <Github className="mr-2 h-4 w-4" />
+                                    GitHub
+                                </Link>
+                            </Button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <ul className="flex items-center gap-2">
+                            <li>
+                                <Button variant="ghost" size="icon" asChild>
+                                    <Link
+                                        href="https://github.com/shillien-templar"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-1"
+                                    >
+                                        <Github className="size-6" />
+                                    </Link>
+                                </Button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </SidebarHeader>
             <SidebarContent>
                 <NavCategory items={data.items}/>
