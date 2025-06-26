@@ -2,19 +2,15 @@
 
 import * as React from "react"
 import {
-    CreditCard,
     FileText,
     Github,
     Layout,
     Lock,
-    Mail,
     MessageCircle,
     Navigation,
     PieChart,
-    Search,
     ShoppingCart,
     Users,
-    ExternalLink,
 } from "lucide-react"
 
 import {NavCategory} from "@/components/nav-category"
@@ -27,7 +23,6 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import {SearchForm} from "./search-form"
 import {ThemeToggle} from "@/components/theme-toggle";
 
 const data = {

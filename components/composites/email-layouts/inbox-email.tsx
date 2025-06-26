@@ -134,7 +134,7 @@ export function InboxEmail() {
                         <p>Hi Team,</p>
 
                         <p>
-                            I've had a chance to review the Q4 marketing campaign materials and overall I'm
+                            I&apos;ve had a chance to review the Q4 marketing campaign materials and overall I&apos;m
                             impressed
                             with the creative direction and strategic approach. The messaging is clear and aligns
                             well
@@ -155,7 +155,7 @@ export function InboxEmail() {
                         </div>
 
                         <p>
-                            I've attached the detailed feedback document with specific comments on each piece.
+                            I&apos;ve attached the detailed feedback document with specific comments on each piece.
                             Please let me know if you have any questions or would like to schedule a call to
                             discuss further.
                         </p>

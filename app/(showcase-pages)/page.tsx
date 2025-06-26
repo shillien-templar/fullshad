@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Github, ExternalLink, Mail, Layout, MessageSquare, FileText, CreditCard, Users } from "lucide-react"
+import { Github, ExternalLink, Layout, MessageSquare, FileText, CreditCard, Users } from "lucide-react"
 import Link from "next/link"
 import { Metadata } from "next"
 
