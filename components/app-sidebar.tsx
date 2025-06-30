@@ -11,6 +11,7 @@ import {
     PieChart,
     ShoppingCart,
     Users,
+    Target,
 } from "lucide-react"
 
 import {NavCategory} from "@/components/nav-category"
@@ -93,6 +94,29 @@ const data = {
                 },
                 {
                     title: "Order Confirmations",
+                    url: "#",
+                },
+            ],
+        },
+        {
+            title: "Productivity",
+            url: "/productivity",
+            icon: Target,
+            items: [
+                {
+                    title: "Tasks",
+                    url: "/productivity/tasks",
+                },
+                {
+                    title: "Calendar Views",
+                    url: "#",
+                },
+                {
+                    title: "Time Tracking",
+                    url: "#",
+                },
+                {
+                    title: "Analytics",
                     url: "#",
                 },
             ],
