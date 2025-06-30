@@ -180,10 +180,10 @@ export function InboxEmail() {
                             <CardContent>
                                 <div className="space-y-2">
                                     <div className="rounded-md flex flex-wrap items-center gap-3 p-2 bg-primary-foreground rounded border">
-                                        <div className="w-full md:w-[auto] md:grow-1 flex items-center gap-3">
-                                            <Paperclip className="h-4 w-4 text-muted-foreground"/>
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium">Q4_Campaign_Review.pdf</p>
+                                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                                            <Paperclip className="h-4 w-4 text-muted-foreground flex-shrink-0"/>
+                                            <div className="min-w-0 flex-1">
+                                                <p className="text-sm font-medium truncate">Q4_Campaign_Review.pdf</p>
                                                 <p className="text-xs text-muted-foreground">2.4 MB</p>
                                             </div>
                                         </div>
@@ -191,10 +191,10 @@ export function InboxEmail() {
                                     </div>
 
                                     <div className="rounded-md flex flex-wrap items-center gap-3 p-2 bg-primary-foreground rounded border">
-                                        <div className="w-full md:w-[auto] md:grow-1 flex items-center gap-3">
-                                            <Paperclip className="h-4 w-4 text-muted-foreground"/>
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium">Campaign_Budget_Analysis.xlsx</p>
+                                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                                            <Paperclip className="h-4 w-4 text-muted-foreground flex-shrink-0"/>
+                                            <div className="min-w-0 flex-1">
+                                                <p className="text-sm font-medium truncate">Campaign_Budget_Analysis.xlsx</p>
                                                 <p className="text-xs text-muted-foreground">1.8 MB</p>
                                             </div>
                                         </div>
