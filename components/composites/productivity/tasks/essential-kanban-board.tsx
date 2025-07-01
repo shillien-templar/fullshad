@@ -9,8 +9,6 @@ import {
     Calendar,
     MessageSquare,
     Paperclip,
-    Flag,
-    CheckCircle2
 } from "lucide-react"
 
 export function EssentialKanbanBoard() {

@@ -12,7 +12,6 @@ import {
     Calendar,
     MessageSquare,
     Paperclip,
-    Flag
 } from "lucide-react"
 
 export function TabbedKanbanBoard() {
@@ -227,7 +226,7 @@ export function TabbedKanbanBoard() {
                             </TabsTrigger>
                         ))}
                     </TabsList>
-                    
+
                     <div className="flex items-center gap-2">
                         <Button variant="outline" size="sm">
                             <Plus className="h-4 w-4 mr-2"/>
