@@ -1,17 +1,101 @@
+'use client';
+
+import { useState } from "react"
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
 import {Badge} from "@/components/ui/badge"
 import {Button} from "@/components/ui/button"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
-import {ScrollArea} from "@/components/ui/scroll-area"
+import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { Calendar } from "@/components/ui/calendar"
+import { format } from "date-fns"
 import {
     Plus,
     MoreHorizontal,
-    Calendar,
+    Calendar as CalendarIcon,
     MessageSquare,
     Paperclip,
+    Settings,
+    Filter,
+    Download,
+    Share,
+    Trash2,
+    Check,
+    ChevronsUpDown,
+    CircleDot,
+    Clock,
+    Eye,
+    CheckCircle,
+    Edit,
+    Copy,
+    Archive,
+    User,
 } from "lucide-react"
 
 export function EssentialKanbanBoard() {
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [selectedAssignee, setSelectedAssignee] = useState("")
+    const [isAssigneeOpen, setIsAssigneeOpen] = useState(false)
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+    const [isDateOpen, setIsDateOpen] = useState(false)
+
+    const availableAssignees = [
+        { name: "Sarah Kim", avatar: "https://avatar.vercel.sh/sarahkim", initials: "SK" },
+        { name: "Alex Rivera", avatar: "https://avatar.vercel.sh/alexrivera", initials: "AR" },
+        { name: "Mike Johnson", avatar: "https://avatar.vercel.sh/mikejohnson", initials: "MJ" },
+        { name: "Lisa Chen", avatar: "https://avatar.vercel.sh/lisachen", initials: "LC" },
+        { name: "Emma Davis", avatar: "https://avatar.vercel.sh/emmadavis", initials: "ED" },
+        { name: "Tom Wilson", avatar: "https://avatar.vercel.sh/tomwilson", initials: "TW" },
+    ]
+
+    const getColumnIcon = (columnId: string) => {
+        switch (columnId) {
+            case "todo": return CircleDot
+            case "in-progress": return Clock
+            case "review": return Eye
+            case "done": return CheckCircle
+            default: return CircleDot
+        }
+    }
+
     const columns = [
         {
             id: "todo",
@@ -202,11 +286,129 @@ export function EssentialKanbanBoard() {
 
     return (
         <div className="w-full">
-            <div className="flex gap-4 h-[700px] overflow-x-auto pb-4">
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Add New Task</DialogTitle>
+                        <DialogDescription>
+                            Create a new task for your project. Fill in the details below.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="title">Task Title</Label>
+                            <Input id="title" placeholder="Enter task title..." />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="description">Description</Label>
+                            <Textarea id="description" placeholder="Enter task description..." />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="priority">Priority</Label>
+                            <Select>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select priority" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="high">High</SelectItem>
+                                    <SelectItem value="medium">Medium</SelectItem>
+                                    <SelectItem value="low">Low</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="grid gap-2">
+                            <Label>Due Date</Label>
+                            <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        className="justify-start text-left font-normal"
+                                    >
+                                        <CalendarIcon className="mr-2 h-4 w-4" />
+                                        {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                        mode="single"
+                                        selected={selectedDate}
+                                        onSelect={(date) => {
+                                            setSelectedDate(date)
+                                            setIsDateOpen(false)
+                                        }}
+                                        initialFocus
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                        <div className="grid gap-2">
+                            <Label>Assignee</Label>
+                            <Popover open={isAssigneeOpen} onOpenChange={setIsAssigneeOpen}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={isAssigneeOpen}
+                                        className="justify-between"
+                                    >
+                                        {selectedAssignee
+                                            ? availableAssignees.find((assignee) => assignee.name === selectedAssignee)?.name
+                                            : "Select assignee..."}
+                                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[200px] p-0">
+                                    <Command>
+                                        <CommandInput placeholder="Search assignee..." />
+                                        <CommandList>
+                                            <CommandEmpty>No assignee found.</CommandEmpty>
+                                            <CommandGroup>
+                                                {availableAssignees.map((assignee) => (
+                                                    <CommandItem
+                                                        key={assignee.name}
+                                                        value={assignee.name}
+                                                        onSelect={(currentValue) => {
+                                                            setSelectedAssignee(currentValue === selectedAssignee ? "" : currentValue)
+                                                            setIsAssigneeOpen(false)
+                                                        }}
+                                                    >
+                                                        <div className="flex items-center gap-2">
+                                                            <Avatar className="h-6 w-6">
+                                                                <AvatarImage src={assignee.avatar} />
+                                                                <AvatarFallback className="text-xs">{assignee.initials}</AvatarFallback>
+                                                            </Avatar>
+                                                            {assignee.name}
+                                                        </div>
+                                                        <Check
+                                                            className={`ml-auto h-4 w-4 ${
+                                                                selectedAssignee === assignee.name ? "opacity-100" : "opacity-0"
+                                                            }`}
+                                                        />
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button onClick={() => setIsDialogOpen(false)}>
+                            Create Task
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+            <ScrollArea>
+                <div className="flex gap-4 overflow-x-auto pb-4">
                 {columns.map((column) => (
-                    <div key={column.id} className="min-w-[320px] flex flex-col">
-                        <Card className={`flex-1 ${column.color}`}>
-                            <CardHeader className="pb-3">
+                    <div key={column.id} className="min-w-[320px] md:min-w-[350px] flex flex-col">
+                        <Card className={`gap-4 py-4 flex-1 ${column.color}`}>
+                            <CardHeader className="px-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <CardTitle className="text-sm font-medium">{column.title}</CardTitle>
@@ -215,28 +417,107 @@ export function EssentialKanbanBoard() {
                                         </Badge>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0" onClick={() => setIsDialogOpen(true)}>
                                             <Plus className="h-4 w-4"/>
                                         </Button>
-                                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                                            <MoreHorizontal className="h-4 w-4"/>
-                                        </Button>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                                                    <MoreHorizontal className="h-4 w-4"/>
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="end">
+                                                <DropdownMenuItem>
+                                                    <Settings className="mr-2 h-4 w-4" />
+                                                    Column Settings
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Filter className="mr-2 h-4 w-4" />
+                                                    Filter Tasks
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Download className="mr-2 h-4 w-4" />
+                                                    Export Column
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem>
+                                                    <Share className="mr-2 h-4 w-4" />
+                                                    Share Column
+                                                </DropdownMenuItem>
+                                                <DropdownMenuSeparator />
+                                                <DropdownMenuItem className="text-destructive">
+                                                    <Trash2 className="mr-2 h-4 w-4" />
+                                                    Clear Column
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
                                     </div>
                                 </div>
                             </CardHeader>
 
-                            <CardContent className="pt-0">
-                                <ScrollArea className="h-[580px] pr-2">
+                            <CardContent className="px-2">
+                                <ScrollArea className="h-[700px]">
                                     <div className="space-y-3">
                                         {column.tasks.map((task) => (
-                                            <Card key={task.id} className="bg-white dark:bg-gray-950 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                                                <CardContent className="p-3 space-y-3">
-                                                    <div className="space-y-2">
-                                                        <div className="flex items-start justify-between gap-2">
-                                                            <h4 className="font-medium text-sm leading-tight">{task.title}</h4>
+                                            <Card key={task.id} className="py-2 bg-white dark:bg-gray-950 shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                                                <CardContent className="px-3 space-y-3">
+                                                    <div className="space-y-3">
+                                                        <div className="flex items-center justify-between gap-2">
+                                                            <Select defaultValue={column.id}>
+                                                                <SelectTrigger className="w-auto h-6 text-xs border-none shadow-none p-1">
+                                                                    <SelectValue />
+                                                                </SelectTrigger>
+                                                                <SelectContent>
+                                                                    {columns.map((col) => {
+                                                                        const IconComponent = getColumnIcon(col.id)
+                                                                        return (
+                                                                            <SelectItem key={col.id} value={col.id}>
+                                                                                <div className="flex items-center gap-2">
+                                                                                    <IconComponent className="h-3 w-3" />
+                                                                                    {col.title}
+                                                                                </div>
+                                                                            </SelectItem>
+                                                                        )
+                                                                    })}
+                                                                </SelectContent>
+                                                            </Select>
                                                             <Badge variant="outline" className={`text-xs px-1.5 py-0.5 ${getPriorityColor(task.priority)}`}>
                                                                 {task.priority}
                                                             </Badge>
+                                                        </div>
+                                                        <div className="flex items-start justify-between gap-2">
+                                                            <h4 className="font-medium text-sm leading-tight flex-1">{task.title}</h4>
+                                                            <div className="flex items-center gap-1 shrink-0">
+                                                                <DropdownMenu>
+                                                                    <DropdownMenuTrigger asChild>
+                                                                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                                                                            <MoreHorizontal className="h-3 w-3" />
+                                                                        </Button>
+                                                                    </DropdownMenuTrigger>
+                                                                    <DropdownMenuContent align="end">
+                                                                        <DropdownMenuItem>
+                                                                            <Edit className="mr-2 h-4 w-4" />
+                                                                            Edit Task
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem>
+                                                                            <Copy className="mr-2 h-4 w-4" />
+                                                                            Duplicate
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem>
+                                                                            <User className="mr-2 h-4 w-4" />
+                                                                            Assign
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuItem>
+                                                                            <Archive className="mr-2 h-4 w-4" />
+                                                                            Archive
+                                                                        </DropdownMenuItem>
+                                                                        <DropdownMenuSeparator />
+                                                                        <DropdownMenuItem className="text-destructive">
+                                                                            <Trash2 className="mr-2 h-4 w-4" />
+                                                                            Delete
+                                                                        </DropdownMenuItem>
+                                                                    </DropdownMenuContent>
+                                                                </DropdownMenu>
+                                                            </div>
                                                         </div>
                                                         <p className="text-xs text-muted-foreground leading-relaxed">
                                                             {task.description}
@@ -254,7 +535,7 @@ export function EssentialKanbanBoard() {
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-3 text-xs text-muted-foreground">
                                                             <div className="flex items-center gap-1">
-                                                                <Calendar className="h-3 w-3"/>
+                                                                <CalendarIcon className="h-3 w-3"/>
                                                                 <span>{task.dueDate}</span>
                                                             </div>
                                                             {task.comments > 0 && (
@@ -289,7 +570,10 @@ export function EssentialKanbanBoard() {
                         </Card>
                     </div>
                 ))}
-            </div>
+                </div>
+
+                <ScrollBar orientation="horizontal"  />
+            </ScrollArea>
         </div>
     )
 }
