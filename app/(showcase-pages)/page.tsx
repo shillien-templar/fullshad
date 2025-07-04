@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Github, ExternalLink, Layout, MessageSquare, FileText, CreditCard, Users } from "lucide-react"
+import { Github, ExternalLink, Layout, MessageSquare, FileText, CreditCard, Users, Target } from "lucide-react"
 import Link from "next/link"
 import { Metadata } from "next"
 
@@ -24,6 +24,14 @@ const categories = [
         href: "/communication",
         count: 1,
         items: ["Email Layouts", "Chat Interfaces", "Message Threads"]
+    },
+    {
+        title: "Productivity",
+        description: "Task management, kanban boards, and productivity dashboards",
+        icon: Target,
+        href: "/productivity",
+        count: 3,
+        items: ["Kanban Boards", "Task Lists", "Time Tracking"]
     },
     {
         title: "E-commerce",
